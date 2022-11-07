@@ -1,8 +1,8 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import Footer from '../shared/Footer/Footer';
 import Navbar from '../shared/Navbar/Navbar';
 import About from './About/About';
+import Contact from './Contact/Contact';
 import Hero from './Hero/Hero';
 
 const Home = () => {
@@ -11,6 +11,7 @@ const Home = () => {
             <Navbar></Navbar>
             <Hero/>
             <About></About>
+            <Contact/>
             <Footer/>
         </div>
     );
