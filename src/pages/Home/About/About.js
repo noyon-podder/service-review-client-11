@@ -5,12 +5,12 @@ const About = () => {
   return (
     <div>
       <div className="hero  bg-base-200 py-20">
-        <div className="hero-content flex-col lg:flex-row-reverse gap-x-10">
+        <div className="hero-content flex-col lg:flex-row-reverse gap-x-10 justify-between">
           <img src={about}
           alt="about img"
           className="mask mask-hexagon"
           />
-          <div className="w-1/2">
+          <div className="w-1/2 ">
             <span className="font-bold text-2xl text-black uppercase my-6">About Me</span>
             <h1 className="text-4xl font-bold mt-6"><span className="text-orange-600">– 2020 ,</span> We’re in Bangladesh!</h1>
             <p className="py-6">
