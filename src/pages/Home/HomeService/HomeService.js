@@ -14,7 +14,7 @@ const HomeService = () => {
     <div className="max-w-6xl mx-auto py-20">
       <h3 className="uppercase text-3xl font-bold text-orange-600">Services</h3>
       <p className="text-black mt-4 font-semibold">We Provide great service and support</p>
-       <div className="services-container grid grid-cols-3 gap-20 mt-10">
+       <div className="services-container grid-cols-1 md:grid-cols-3 gap-20 mt-10">
         {services.map(service => <ServiceWrapper
          key={service._id}
          service={service}

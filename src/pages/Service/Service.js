@@ -10,7 +10,7 @@ const Service = () => {
         Total {services.length} service we provide ---
       </h4>
 
-      <div className="services-container grid grid-cols-3 gap-20 mt-10">
+      <div className="services-container grid grid-cols-1 md:grid-cols-3 gap-16 mt-10">
         {services.map((service) => (
           <ServiceWrapper key={service._id} service={service}></ServiceWrapper>
         ))}
