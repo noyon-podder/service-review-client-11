@@ -4,31 +4,46 @@ import { AuthProvider } from "../../../contexts/AuthContext";
 import Navbar from "../../shared/Navbar/Navbar";
 
 const RegisterForm = () => {
-  const {createNewUser} = useContext(AuthProvider);
+  const {createNewUser, userUpdateProfile, setUser} = useContext(AuthProvider);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+
   const handleRegisterForm = event => {
     event.preventDefault();
 
+    setError('');
+    
     const form = event.target;
     const displayName =form.fullName.value;
     const photoURL = form.displayPhoto.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(displayName, photoURL, email, password);
+    const profileInfo = {
+      displayName,
+      photoURL
+    }
 
     //new user created
     createNewUser(email, password)
     .then(result => {
       const user = result.user;
       console.log(user);
-      navigate('/')
+      navigate('/');
+      userUpdateProfile(profileInfo)
+      setUser(user);
     })
     .catch(err => {
       setError(err.message);
     })
 
-    setError('');
+   
+
+    userUpdateProfile(profileInfo)
+    .then()
+    .catch(err => {
+      setError(err.message);
+    })
   }
   return (
     <>

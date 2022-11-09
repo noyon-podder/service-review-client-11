@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
 import logo from "../../../images/logo-icon.png";
 const Navbar = () => {
-  const { user } = useContext(AuthProvider);
+  const { user, userLogout } = useContext(AuthProvider);
+
+
+  const handleLogout = () => {
+  userLogout()
+  .then()
+  .catch(err => console.log(err));
+  }
   return (
     <header className="bg-black">
       <div className="navbar max-w-6xl mx-auto py-5">
@@ -69,25 +76,37 @@ const Navbar = () => {
                     Add Service
                   </li>
                 </Link>
-                <Link to="/logout">
-                  <li className="text-white font-3xl font-semibold mr-5 hover:text-orange-600">
+               
+                  <li className="text-white font-3xl font-semibold mr-5 hover:text-orange-600 cursor-pointer" onClick={handleLogout}>
                     Logout
                   </li>
-                </Link>
+               
               </>
             )}
           </ul>
         </div>
         <div className="navbar-end">
           {!user?.uid && (
+          <>
             <Link to="/register">
               {" "}
               <button className="btn btn-warning px-6 text-black font-semibold">
                 Register
               </button>
             </Link>
+            <Link to="/login">
+              {" "}
+              <button className="btn btn-primary px-6 text-white ml-5 font-semibold">
+                Login
+              </button>
+            </Link>
+          </>
           )}
-          <p className="text-white text-3xl">{user?.displayName}</p>
+         {
+          user?.uid && 
+          <> <img src={user?.photoURL} alt="" className="w-14 rounded-full mr-5 border-2 border-orange-600"/>
+          <span className="text-warning text-2xl ">{user?.displayName}</span></>
+         }
         </div>
       </div>
     </header>

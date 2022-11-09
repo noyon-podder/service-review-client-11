@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
-// import loginImage from "../../../images/login/login.jpg";
+import Navbar from "../../shared/Navbar/Navbar";
+
 
 const LoginForm = () => {
-  const {userSignIn} = useContext(AuthProvider);
-  const [error, setError] = useContext('')
+  const {userSignIn,} = useContext(AuthProvider);
+  const [err, setErr] = useState('');
 
+  // setError('');
   const handelLogInForm = event => {
     event.preventDefault();
 
@@ -20,12 +22,14 @@ const LoginForm = () => {
       console.log(user);
     })
     .catch(err => {
-      setError(err.message);
+    setErr(err.message);
     })
+
   }
-  setError('');
+
   return (
     <div>
+      <Navbar/>
       <div className="hero min-h-screen bg-white max-w-6xl mx-auto">
         <div className="hero-content flex justify-between">
           <div className="text-center lg:text-left lg:w-1/2">
@@ -33,7 +37,7 @@ const LoginForm = () => {
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 ">
             <form onSubmit = {handelLogInForm} className="card-body">
-            <span className="text-red-600 font-semibold text-center">{error}</span>
+            <span className="text-red-600 font-semibold text-center">{err}</span>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
