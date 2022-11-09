@@ -1,17 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthProvider } from "../../../contexts/AuthContext";
 import Navbar from "../../shared/Navbar/Navbar";
 
 const RegisterForm = () => {
+  const {createNewUser} = useContext(AuthProvider);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const handleRegisterForm = event => {
     event.preventDefault();
 
     const form = event.target;
-    const name =form.fullName.value;
-    const photo = form.displayPhoto.value;
+    const displayName =form.fullName.value;
+    const photoURL = form.displayPhoto.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, photo, email, password);
+    console.log(displayName, photoURL, email, password);
+
+    //new user created
+    createNewUser(email, password)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      navigate('/')
+    })
+    .catch(err => {
+      setError(err.message);
+    })
+
+    setError('');
   }
   return (
     <>
@@ -29,6 +46,7 @@ const RegisterForm = () => {
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <form onSubmit={handleRegisterForm} className="card-body">
+                <span className="text-red-600 font-semibold text-center">{error}</span>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Full Name</span>
