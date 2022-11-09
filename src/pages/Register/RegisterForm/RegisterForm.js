@@ -1,19 +1,21 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
+import google from '../../../images/Google_Icons-09-512.webp';
 import Navbar from "../../shared/Navbar/Navbar";
 
 const RegisterForm = () => {
-  const {createNewUser, userUpdateProfile, setUser} = useContext(AuthProvider);
+  const {createNewUser, userUpdateProfile, setUser, googleSignUp} = useContext(AuthProvider);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
+  const provider = new GoogleAuthProvider();
 
   const handleRegisterForm = event => {
     event.preventDefault();
 
-    setError('');
     
+
     const form = event.target;
     const displayName =form.fullName.value;
     const photoURL = form.displayPhoto.value;
@@ -29,7 +31,6 @@ const RegisterForm = () => {
     .then(result => {
       const user = result.user;
       console.log(user);
-      navigate('/');
       userUpdateProfile(profileInfo)
       setUser(user);
     })
@@ -38,11 +39,23 @@ const RegisterForm = () => {
     })
 
    
-
+    setError('');
     userUpdateProfile(profileInfo)
     .then()
     .catch(err => {
       setError(err.message);
+    })
+  }
+  
+  const handleGoogleLogin = () => {
+    googleSignUp(provider)
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      setUser(user);
+    })
+    .catch(error => {
+      setError(error.message)
     })
   }
   return (
@@ -125,6 +138,13 @@ const RegisterForm = () => {
                   </button>
                 </div>
               </form>
+              <div className="google-login">
+                <div className="flex justify-center items-center border-2 mb-5 cursor-pointer border-gray-200 rounded"
+                onClick={handleGoogleLogin}>
+                  <img src={google} alt="" className="w-10"/>
+                  <p className="text-black font-bold ml-2">SignUp with Google</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

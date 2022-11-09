@@ -104,7 +104,7 @@ const Navbar = () => {
           )}
          {
           user?.uid && 
-          <> <img src={user?.photoURL} alt="" className="w-14 rounded-full mr-5 border-2 border-orange-600"/>
+          <> <img src={user?.photoURL} alt="" className="w-12 h-12 rounded-full mr-5 border-2 border-orange-600"/>
           <span className="text-warning text-2xl ">{user?.displayName}</span></>
          }
         </div>
