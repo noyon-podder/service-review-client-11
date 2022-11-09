@@ -20,7 +20,9 @@ const HomeService = () => {
          service={service}
         ></ServiceWrapper>)}
        </div>
-       <div className="text-center mt-7"><Link><button className="btn bg-black px-15 font-semibold">See All Services</button></Link></div>
+       <div className="text-center mt-7">
+        <Link to="/services"><button className="btn bg-black px-15 font-semibold">See All Services</button></Link>
+        </div>
        
     </div>
   );
