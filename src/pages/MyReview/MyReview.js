@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import useTitle from '../Hooks/useTitle';
 import ReviewWrapper from '../shared/ReviewWrapper/ReviewWrapper';
 
 const MyReview = () => {
     const [reviews, setReviews] = useState([])
+    useTitle('My Review')
     useEffect(() => {
         fetch('http://localhost:5000/reviews/')
         .then(res => res.json())

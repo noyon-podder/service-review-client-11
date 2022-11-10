@@ -1,8 +1,10 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import ServiceWrapper from "../Home/HomeService/ServiceWrapper";
+import useTitle from "../Hooks/useTitle";
 
 const Service = () => {
+  useTitle('Service')
   const services = useLoaderData();
   return (
     <div className="max-w-6xl mx-auto py-20">
