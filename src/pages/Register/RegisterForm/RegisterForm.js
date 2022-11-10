@@ -36,15 +36,15 @@ const RegisterForm = () => {
       event.target.reset();
     })
     .catch(err => {
-      setError(err.message);
+      console.log(err)
     })
 
    
-    setError('');
+    
     userUpdateProfile(profileInfo)
     .then()
     .catch(err => {
-      setError(err.message);
+      console.log(err.message);
     })
   }
 
@@ -58,7 +58,7 @@ const RegisterForm = () => {
       setUser(user);
     })
     .catch(error => {
-      setError(error.message)
+      console.log(error)
     })
   }
   return (
