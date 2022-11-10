@@ -63,6 +63,11 @@ const Navbar = () => {
                 Services
               </li>
             </Link>
+            <Link to="/blog">
+              <li className="text-white font-3xl font-semibold mr-5 hover:text-orange-600">
+                Blog
+              </li>
+            </Link>
 
             {user?.uid && (
               <>
@@ -86,27 +91,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {!user?.uid && (
-          <>
-            <Link to="/register">
-              {" "}
-              <button className="btn btn-warning px-6 text-black font-semibold">
-                Register
-              </button>
-            </Link>
-            <Link to="/login">
-              {" "}
-              <button className="btn btn-primary px-6 text-white ml-5 font-semibold">
-                Login
-              </button>
-            </Link>
-          </>
-          )}
-         {
-          user?.uid && 
-          <> <img src={user?.photoURL} alt="" className="w-12 h-12 rounded-full mr-5 border-2 border-orange-600"/>
-          <span className="text-warning text-2xl ">{user?.displayName}</span></>
-         }
+         
         </div>
       </div>
     </header>

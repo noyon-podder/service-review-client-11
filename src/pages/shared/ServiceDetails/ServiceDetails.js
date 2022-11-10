@@ -11,7 +11,7 @@ const ServiceDetails = () => {
   
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/${_id}`)
+    fetch(`https://justice-server.vercel.app/reviews/${_id}`)
     .then(res => res.json())
     .then(data => console.log(data))
   }, [_id])
@@ -26,10 +26,14 @@ const ServiceDetails = () => {
   
 
     const reviewData = {
-        textField, email, image, serviceId,author
+        textField, 
+        email, 
+        image, 
+        serviceId,
+        author
     }
 
-     fetch("http://localhost:5000/reviews", {
+     fetch("https://justice-server.vercel.app/reviews", {
         method: "POST",
         headers: {
             'content-type': 'application/json'

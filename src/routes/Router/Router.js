@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layout/Main";
 import AddService from "../../pages/AddService/AddService";
+import Blog from "../../pages/Blog/Blog";
 import Home from "../../pages/Home/Home";
 import MyReview from "../../pages/MyReview/MyReview";
 import LoginForm from "../../pages/Register/LoginForm/LoginForm";
@@ -21,12 +22,12 @@ export const router = createBrowserRouter([
           {
             path: '/services',
             element: <Service/>,
-            loader: () => fetch('http://localhost:5000/services')
+            loader: () => fetch('https://justice-server.vercel.app/services')
           },
           {
             path: '/services/:id',
             element: <ServiceDetails/>,
-            loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`) 
+            loader: ({params}) => fetch(`https://justice-server.vercel.app/services/${params.id}`) 
           },
           {
             path: '/add',
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
           
           }
         ]
+    },
+    {
+      path: '/blog',
+      element: <Blog/>
     },
     
     {

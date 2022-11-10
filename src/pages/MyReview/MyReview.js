@@ -6,7 +6,7 @@ const MyReview = () => {
     const [reviews, setReviews] = useState([])
     useTitle('My Review')
     useEffect(() => {
-        fetch('http://localhost:5000/reviews/')
+        fetch('https://justice-server.vercel.app/reviews/')
         .then(res => res.json())
         .then(data => setReviews(data))
     }, [])

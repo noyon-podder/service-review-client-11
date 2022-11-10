@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import useTitle from '../Hooks/useTitle';
 
 const AddService = () => {
@@ -20,7 +20,7 @@ const AddService = () => {
     console.log(name, img, price, des);
   
       
-    fetch('http://localhost:5000/services', {
+    fetch('https://justice-server.vercel.app/services', {
         method: "POST",
         headers: {
             "content-type" : "application/json"
