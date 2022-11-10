@@ -91,6 +91,22 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
+          {!user?.uid && (
+          <>
+            <Link to="/register">
+              {" "}
+              <button className="btn btn-warning px-6 text-black font-semibold">
+                Register
+              </button>
+            </Link>
+            <Link to="/login">
+              {" "}
+              <button className="btn btn-primary px-6 text-white ml-5 font-semibold">
+                Login
+              </button>
+            </Link>
+          </>
+          )}
          
         </div>
       </div>

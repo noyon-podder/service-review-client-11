@@ -10,26 +10,20 @@ const ServiceDetails = () => {
   const [location, setLocation] = useState("");
   
 
-  useEffect(() => {
-    fetch(`https://justice-server.vercel.app/reviews/${_id}`)
-    .then(res => res.json())
-    .then(data => console.log(data))
-  }, [_id])
 
 
  const reviewButton = () => {
     const textField = location;
     const email = user?.email;
     const image = user?.photoURL;
-    const serviceId = _id;
     const author = user?.displayName;
   
 
     const reviewData = {
-        textField, 
+      serviceId: _id,
+        reviewMessage: textField, 
         email, 
         image, 
-        serviceId,
         author
     }
 

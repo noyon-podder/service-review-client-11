@@ -7,7 +7,7 @@ import Navbar from "../../shared/Navbar/Navbar";
 
 const RegisterForm = () => {
   const {createNewUser, userUpdateProfile, setUser, googleSignUp} = useContext(AuthProvider);
-  const [error, setError] = useState('');
+  
 
   const provider = new GoogleAuthProvider();
 
@@ -77,7 +77,7 @@ const RegisterForm = () => {
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <form onSubmit={handleRegisterForm} className="card-body">
-                <span className="text-red-600 font-semibold text-center">{error}</span>
+               
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Full Name</span>
