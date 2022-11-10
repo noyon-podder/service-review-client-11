@@ -26,9 +26,7 @@ export const router = createBrowserRouter([
           {
             path: '/services/:id',
             element: <ServiceDetails/>,
-            loader: ({params}) => {
-              fetch(`http://localhost:5000/services/${params.id}`)
-            }
+            loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`) 
           },
           {
             path: '/add',
@@ -36,10 +34,12 @@ export const router = createBrowserRouter([
           },
           {
             path: '/review',
-            element: <PrivateRouter><MyReview/></PrivateRouter>
+            element: <PrivateRouter><MyReview/></PrivateRouter>,
+          
           }
         ]
     },
+    
     {
       path: '/register',
       element: <RegisterForm/>

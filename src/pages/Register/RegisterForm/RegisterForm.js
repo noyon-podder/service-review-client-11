@@ -11,10 +11,10 @@ const RegisterForm = () => {
 
   const provider = new GoogleAuthProvider();
 
+  
+
   const handleRegisterForm = event => {
     event.preventDefault();
-
-    
 
     const form = event.target;
     const displayName =form.fullName.value;
@@ -33,6 +33,7 @@ const RegisterForm = () => {
       console.log(user);
       userUpdateProfile(profileInfo)
       setUser(user);
+      event.target.reset();
     })
     .catch(err => {
       setError(err.message);
@@ -46,6 +47,8 @@ const RegisterForm = () => {
       setError(err.message);
     })
   }
+
+  
   
   const handleGoogleLogin = () => {
     googleSignUp(provider)
