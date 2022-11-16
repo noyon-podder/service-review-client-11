@@ -3,13 +3,13 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const ServiceWrapper = ({ service }) => {
-  const { name, img, price, des, _id } = service;
+  const { name, image, price, des, _id } = service;
   return (
     <div className="card card-compact w-96 bg-base-100 shadow-xl">
         <PhotoProvider>
       <figure>
-       <PhotoView src={img}>
-       <img src={img} alt="Shoes" className="cursor-pointer"/>
+       <PhotoView src={image}>
+       <img src={image} alt="Shoes" className="cursor-pointer"/>
        </PhotoView>
       </figure>
         </PhotoProvider>

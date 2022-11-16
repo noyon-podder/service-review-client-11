@@ -22,12 +22,12 @@ export const router = createBrowserRouter([
           {
             path: '/services',
             element: <Service/>,
-            loader: () => fetch('https://justice-server.vercel.app/services')
+            loader: () => fetch('http://localhost:5000/services')
           },
           {
             path: '/services/:id',
             element: <ServiceDetails/>,
-            loader: ({params}) => fetch(`https://justice-server.vercel.app/services/${params.id}`) 
+            loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`) 
           },
           {
             path: '/add',

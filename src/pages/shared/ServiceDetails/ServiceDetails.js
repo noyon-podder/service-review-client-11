@@ -5,11 +5,19 @@ import { AuthProvider } from "../../../contexts/AuthContext";
 
 const ServiceDetails = () => {
   const service = useLoaderData();
-  const { name, img, des, price, _id } = service;
+  const { name, image, des, price, _id } = service;
   const {user} = useContext(AuthProvider);
   const [location, setLocation] = useState("");
+  const [userReview, setUserReview] = useState([]);
   
-
+ useEffect( () => {
+  fetch(`http://localhost:5000/reviews/${_id}`)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+    setUserReview(data);
+  })
+ },[_id])
 
 
  const reviewButton = () => {
@@ -19,36 +27,37 @@ const ServiceDetails = () => {
     const author = user?.displayName;
   
 
-    const reviewData = {
+    
+    const reviews = {
       serviceId: _id,
-        reviewMessage: textField, 
-        email, 
-        image, 
-        author
+      userEmail: email,
+      image,
+      author,
+      message: textField
     }
 
-     fetch("https://justice-server.vercel.app/reviews", {
-        method: "POST",
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(reviewData)
-     })
-     .then(res => res.json())
-     .then(data => {
-        console.log(data);
-        if(data.acknowledged){
-           
-           textField.reset();
-        }
-     })
+    fetch('http://localhost:5000/reviews', {
+      method: "POST",
+      headers: {
+        'content-type' : 'application/json'
+      },
+      body: JSON.stringify(reviews)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+     if(data.acknowledged){
+      setLocation('')
+     }
+    })
+
  }
   return (
     <div className="max-w-6xl mx-auto">
         <h4 className="my-4 text-orange-600 text-3xl font-bold"><span className="text-black text-3xl font-bold">Service Name: </span>{name}</h4>
       <div className="card  bg-base-100 shadow-xl">
         <figure>
-          <img src={img} alt="ServicesImage" />
+          <img src={image} alt="ServicesImage" />
         </figure>
         <div className="card-body">
 
@@ -66,9 +75,11 @@ const ServiceDetails = () => {
           
         </div>
       </div>
+
+      {userReview.length}
         <>
         {
-            user?.email ? 
+            user?.uid ? 
             <div className="py-5">
             <h2 className="text-orange-500 text-2xl font-semibold">Reviews-</h2>
            <div className="mt-5">
