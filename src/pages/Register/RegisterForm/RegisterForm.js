@@ -1,12 +1,13 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
 import google from '../../../images/Google_Icons-09-512.webp';
 import Navbar from "../../shared/Navbar/Navbar";
 
 const RegisterForm = () => {
   const {createNewUser, userUpdateProfile, setUser, googleSignUp} = useContext(AuthProvider);
+  const navigate = useNavigate();
   
 
   const provider = new GoogleAuthProvider();
@@ -32,6 +33,7 @@ const RegisterForm = () => {
       const user = result.user;
       console.log(user);
       userUpdateProfile(profileInfo)
+      navigate('/')
       setUser(user);
       event.target.reset();
     })
@@ -56,6 +58,7 @@ const RegisterForm = () => {
       const user = result.user;
       console.log(user);
       setUser(user);
+      navigate('/')
     })
     .catch(error => {
       console.log(error)

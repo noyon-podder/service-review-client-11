@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
+import ReviewCard from "./ReviewCard";
 
 
 const ServiceDetails = () => {
@@ -8,6 +9,7 @@ const ServiceDetails = () => {
   const { name, image, des, price, _id } = service;
   const {user} = useContext(AuthProvider);
   const [location, setLocation] = useState("");
+  // const [review, setReview] = useState({});
   const [userReview, setUserReview] = useState([]);
   
  useEffect( () => {
@@ -25,6 +27,9 @@ const ServiceDetails = () => {
     const email = user?.email;
     const image = user?.photoURL;
     const author = user?.displayName;
+    const date = new Date();
+    const time = date.getTime();
+    console.log(time)
   
 
     
@@ -33,7 +38,8 @@ const ServiceDetails = () => {
       userEmail: email,
       image,
       author,
-      message: textField
+      message: textField,
+      time
     }
 
     fetch('http://localhost:5000/reviews', {
@@ -51,6 +57,7 @@ const ServiceDetails = () => {
      }
     })
 
+    // console.log(review)
  }
   return (
     <div className="max-w-6xl mx-auto">
@@ -76,7 +83,12 @@ const ServiceDetails = () => {
         </div>
       </div>
 
-      {userReview.length}
+      <div className="my-8">
+        {userReview?.map(review => <ReviewCard
+            key={review._id}
+            review={review}
+        />)}
+      </div>
         <>
         {
             user?.uid ? 
@@ -84,7 +96,9 @@ const ServiceDetails = () => {
             <h2 className="text-orange-500 text-2xl font-semibold">Reviews-</h2>
            <div className="mt-5">
            <textarea className="textarea border border-gray-300 w-full" value={location} placeholder="Share your experience" onChange={(e)=> setLocation(e.target.value)}></textarea>
-           <button className="btn btn-warning px-10 font-bold mt-2" onClick={reviewButton}>Send</button>
+           <button className="btn btn-warning px-10 font-bold mt-2" onClick={reviewButton} 
+           disabled={location?.length === 0}
+           >Send</button>
            </div>
           </div> :
           <h3 className="text-center py-3 text-2xl text-indigo-600 font-semibold">Please Login and share your experience!!!</h3>

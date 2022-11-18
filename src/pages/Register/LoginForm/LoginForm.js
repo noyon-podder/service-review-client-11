@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
 import Navbar from "../../shared/Navbar/Navbar";
 
@@ -7,6 +7,10 @@ import Navbar from "../../shared/Navbar/Navbar";
 const LoginForm = () => {
   const {userSignIn,} = useContext(AuthProvider);
   const [err, setErr] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const from = location.status?.from?.pathname || '/' 
 
   // setError('');
   const handelLogInForm = event => {
@@ -20,6 +24,7 @@ const LoginForm = () => {
     .then(result => {
       const user = result.user;
       console.log(user);
+      navigate(from, {replace: true})
     })
     .catch(err => {
     setErr(err.message);
@@ -54,8 +59,8 @@ const LoginForm = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="text"
-                  placeholder="password"
+                  type="password"
+                  placeholder="*******"
                   className="input input-bordered"
                   name="password"
                 />
