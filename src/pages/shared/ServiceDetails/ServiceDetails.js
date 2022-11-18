@@ -39,7 +39,7 @@ const ServiceDetails = () => {
       image,
       author,
       message: textField,
-      time
+      date
     }
 
     fetch('http://localhost:5000/reviews', {

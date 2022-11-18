@@ -1,28 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import useTitle from '../Hooks/useTitle';
-import ReviewWrapper from '../shared/ReviewWrapper/ReviewWrapper';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthProvider } from "../../contexts/AuthContext";
+import useTitle from "../Hooks/useTitle";
+import Modal from "./Modal/Modal";
 
 const MyReview = () => {
-    const [reviews, setReviews] = useState([])
-    useTitle('My Review')
-    useEffect(() => {
-        fetch('https://justice-server.vercel.app/reviews/')
-        .then(res => res.json())
-        .then(data => setReviews(data))
-    }, [])
-    return (
-        <div className='max-w-6xl mx-auto'>
-           <h3 className='text-orange-500 font-bold text-2xl py-5'>Total Review : {reviews.length}</h3>
-         <div className='grid grid-cols-1 md:grid-cols-3 gap-16 py-15'>
-            {
-                reviews.map(review => <ReviewWrapper
-                key={review._id}
-                review={review}
-                ></ReviewWrapper>)
-            }
-         </div>
-        </div>
-    );
+  const [reviews, setReviews] = useState([]);
+  const[modalData, setModalData] = useState('');
+  const { user } = useContext(AuthProvider);
+  useTitle("My Review");
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, [user?.email]);
+
+
+
+    const handleUpdateModal = id => {
+        console.log(id)
+    }
+
+
+
+  return (
+    <div className="max-w-6xl mx-auto">
+      <h3 className="text-orange-500 font-bold text-2xl py-5">
+        Total Review : {reviews.length}
+      </h3>
+
+      <table className="table w-full my-10">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Message</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        {reviews?.map((review, i) => (
+          <tbody key={review._id}>
+            <tr>
+              <th>{i + 1}</th>
+              <td>
+                <div className="avatar pl-5">
+                  <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img src={review.image} alt="reviewImage" className="" />
+                  </div>
+                </div>
+              </td>
+              <td>{review?.author}</td>
+              <td>{review?.message}</td>
+              <td>
+                <label
+                  htmlFor="update-modal"
+                  className="btn btn-xs btn-success"
+                  onClick={() => handleUpdateModal(review._id)}
+                >
+                  Update
+                </label>
+                
+              </td>
+              <td>
+                <button className="btn btn-xs btn-warning">Delete</button>
+              </td>
+            </tr>
+            <Modal review={review}/>
+          </tbody>
+           
+        ))}
+      </table>
+     
+    </div>
+  );
 };
 
 export default MyReview;
