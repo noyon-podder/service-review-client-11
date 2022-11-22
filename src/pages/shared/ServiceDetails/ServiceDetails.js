@@ -29,8 +29,7 @@ const ServiceDetails = () => {
     const image = user?.photoURL;
     const author = user?.displayName;
     const date = new Date();
-    const time = date.getTime();
-    console.log(time)
+
   
 
     
@@ -63,8 +62,8 @@ const ServiceDetails = () => {
  }
   return (
     <div className="max-w-6xl mx-auto">
-        <h4 className="my-4 text-orange-600 text-3xl font-bold"><span className="text-black text-3xl font-bold">Service Name: </span>{name}</h4>
-      <div className="card  bg-base-100 shadow-xl">
+        <h4 className="my-4 text-orange-600 text-3xl font-bold"><span className="text-black text-3xl font-bold ">Service Name: </span>{name}</h4>
+      <div className="card  bg-base-100 shadow-xl mt-10">
         <figure>
           <img src={image} alt="ServicesImage" />
         </figure>
@@ -86,6 +85,9 @@ const ServiceDetails = () => {
       </div>
 
       <div className="my-8">
+        {
+          userReview?.length === 0 && <h3 className="text-3xl text-indigo-600 font-semibold">No review</h3>
+        }
         {userReview?.map(review => <ReviewCard
             key={review._id}
             review={review}

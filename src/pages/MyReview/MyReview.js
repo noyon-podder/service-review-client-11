@@ -17,9 +17,9 @@ const MyReview = () => {
 
 
 
-   const handleReviewDeleteButton = id => {
+   const handleReviewDeleteButton = review => {
     
-    fetch(`http://localhost:5000/reviews/${id}`, {
+    fetch(`http://localhost:5000/reviews/${review._id}`, {
       method: "DELETE",
     })
     .then(res => res.json())
@@ -28,13 +28,13 @@ const MyReview = () => {
       if(data.deletedCount > 0){
         toast.success("Review Delete Success")
 
-        const remaining = reviews.filter( usr => usr.id !== id)
+        const remaining = reviews.filter( usr => usr._id !== review._id)
         setReviews(remaining)
       }
     })
 
 
-    
+
    }
 
 
@@ -81,7 +81,7 @@ const MyReview = () => {
               </td>
               <td>
                 <button className="btn btn-xs btn-warning"
-                onClick={() => handleReviewDeleteButton(review._id)}
+                onClick={() => handleReviewDeleteButton(review)}
                 >Delete</button>
               </td>
             </tr>
