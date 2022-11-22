@@ -10,7 +10,11 @@ const MyReview = () => {
   const { user } = useContext(AuthProvider);
   useTitle("My Review");
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+      headers:{
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      }
+    })
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, [user?.email]);

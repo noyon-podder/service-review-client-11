@@ -1,18 +1,24 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
+import useToken from "../../../hooks/useToken";
 import google from '../../../images/Google_Icons-09-512.webp';
 import Navbar from "../../shared/Navbar/Navbar";
 
 const RegisterForm = () => {
-  const {createNewUser, userUpdateProfile, setUser, googleSignUp} = useContext(AuthProvider);
+  const {createNewUser, userUpdateProfile, setUser, user, googleSignUp} = useContext(AuthProvider);
+
+  const [userEmail, setUserEmail] = useState('')
+  const [token] = useToken(userEmail)
   const navigate = useNavigate();
   
 
   const provider = new GoogleAuthProvider();
 
-  
+  if(token){
+    return navigate('/')
+  }
 
   const handleRegisterForm = event => {
     event.preventDefault();
@@ -33,7 +39,8 @@ const RegisterForm = () => {
       const user = result.user;
       console.log(user);
       userUpdateProfile(profileInfo)
-      navigate('/')
+      saveUser(displayName, email)
+
       setUser(user);
       event.target.reset();
     })
@@ -44,12 +51,31 @@ const RegisterForm = () => {
    
     
     userUpdateProfile(profileInfo)
-    .then()
+    .then(() => {
+      
+    })
     .catch(err => {
       console.log(err.message);
     })
   }
 
+  const saveUser = (name, email) => {
+    const userData = {name, email}
+
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
+      headers: { 
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.acknowledged){
+        setUserEmail(email)
+      }
+    })
+  }
   
   
   const handleGoogleLogin = () => {
