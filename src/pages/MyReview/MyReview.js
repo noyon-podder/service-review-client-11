@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AuthProvider } from "../../contexts/AuthContext";
 import useTitle from "../Hooks/useTitle";
 import Modal from "./Modal/Modal";
@@ -16,7 +17,25 @@ const MyReview = () => {
 
 
 
-   
+   const handleReviewDeleteButton = id => {
+    
+    fetch(`http://localhost:5000/reviews/${id}`, {
+      method: "DELETE",
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if(data.deletedCount > 0){
+        toast.success("Review Delete Success")
+
+        const remaining = reviews.filter( usr => usr.id !== id)
+        setReviews(remaining)
+      }
+    })
+
+
+    
+   }
 
 
 
@@ -37,7 +56,7 @@ const MyReview = () => {
             <th>Delete</th>
           </tr>
         </thead>
-        {reviews?.map((review, i) => (
+        {reviews.map((review, i) => (
           <tbody key={review._id}>
             <tr>
               <th>{i + 1}</th>
@@ -61,7 +80,9 @@ const MyReview = () => {
                 
               </td>
               <td>
-                <button className="btn btn-xs btn-warning">Delete</button>
+                <button className="btn btn-xs btn-warning"
+                onClick={() => handleReviewDeleteButton(review._id)}
+                >Delete</button>
               </td>
             </tr>
           </tbody>
