@@ -16,9 +16,7 @@ const MyReview = () => {
 
 
 
-    const handleUpdateModal = id => {
-        console.log(id)
-    }
+   
 
 
 
@@ -56,9 +54,9 @@ const MyReview = () => {
                 <label
                   htmlFor="update-modal"
                   className="btn btn-xs btn-success"
-                  onClick={() => handleUpdateModal(review._id)}
+                  onClick={() => setModalData(review)}
                 >
-                  Update
+                  Edit
                 </label>
                 
               </td>
@@ -66,12 +64,18 @@ const MyReview = () => {
                 <button className="btn btn-xs btn-warning">Delete</button>
               </td>
             </tr>
-            <Modal review={review}/>
           </tbody>
            
         ))}
       </table>
-     
+     {
+      modalData && 
+      
+      <Modal
+      modalData={modalData}
+      setModalData={setModalData}
+      />
+     }
     </div>
   );
 };

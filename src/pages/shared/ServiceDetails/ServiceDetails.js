@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useLoaderData } from "react-router-dom";
 import { AuthProvider } from "../../../contexts/AuthContext";
 import ReviewCard from "./ReviewCard";
@@ -54,6 +55,7 @@ const ServiceDetails = () => {
       console.log(data);
      if(data.acknowledged){
       setLocation('')
+      toast.success("Review add successfully")
      }
     })
 
